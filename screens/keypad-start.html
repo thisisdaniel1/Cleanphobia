@@ -1,0 +1,141 @@
+
+
+<html>
+    <head>
+        <style>
+            body {
+                cursor: crosshair;
+                background-position: center center;
+                background-image: url("../assets/bricks.png");
+                background-size: 150px;
+            }
+
+            #start-keypad {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                border-style: solid;
+                border-width: 5px;
+                border-color: blue;
+                background-image: url("../assets/actions/eye.png");
+                width: 90px;
+                height: 210px;
+                cursor: url("../assets/actions/eye.png"), auto;
+                position: absolute;
+                left: 540px;
+                bottom: 140px;
+            }
+
+            #start-bookmark {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                border-style: solid;
+                border-width: 5px;
+                border-color: blue;
+                background-image: url("../assets/actions/eye.png");
+                width: 50px;
+                height: 100px;
+                cursor: url("../assets/actions/eye.png"), auto;
+                position: absolute;
+                right: 540px;
+                top: 10px;
+            }
+
+            #start-right {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                border-style: solid;
+                border-width: 5px;
+                border-color: red;
+                background-image: url("../assets/actions/right.png");
+                width: 90px;
+                height: 230px;
+                cursor: url("../assets/actions/right.png"), auto;
+                position: absolute;
+                right: 535px;
+                bottom: 140px;
+            }
+
+            #start-left {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                border-style: solid;
+                border-width: 5px;
+                border-color: red;
+                background-image: url("../assets/actions/left.png");
+                width: 90px;
+                height: 230px;
+                cursor: url("../assets/actions/left.png"), auto;
+                position: absolute;
+                left: 535px;
+                top: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div style="display: flex; justify-content: center;">
+            <video id="video" width="300" height="500" autoplay>
+                <source src="../assets/keypad-start.mp4" type="video/mp4">
+                Video no work.
+            </video>
+        </div>
+
+        <div id="keypad" style="visibility: hidden; opacity: 0;">
+            <a id="start-keypad" href="start-keypad.html"></a>
+        </div>
+
+        <div id="bookmark" style="visibility: hidden; opacity: 0;">
+            <a id="start-bookmark" href="start-bookmark.html"></a>
+        </div>
+
+        <div id="right" style="visibility: hidden; opacity: 0;">
+            <a id="start-right" href="start-right.html"></a>
+        </div>
+
+        <div id="left" style="visibility: hidden; opacity: 0;">
+            <a id="start-left" href="start-left.html"></a>
+        </div>
+    </body>
+
+    <script>
+        // enums for player controls
+        const showItems = "Enter";
+
+        var video = document.getElementById("video");
+
+        video.onended = () => {
+            document.getElementById("keypad").style.visibility = "visible";
+            document.getElementById("bookmark").style.visibility = "visible";
+            document.getElementById("right").style.visibility = "visible";
+            document.getElementById("left").style.visibility = "visible";
+
+
+            // this function can be reused for anytime the player holds a key down
+            document.body.onkeydown = (event) => {
+                // while the player is holding down the showItems key, the button outlines will appear
+                if (event.key == showItems){
+                    document.getElementById("keypad").style.opacity = "100";
+                    document.getElementById("bookmark").style.opacity = "100";
+                    document.getElementById("right").style.opacity = "100";
+                    document.getElementById("left").style.opacity = "100";
+                }
+            }
+
+            // this function can be reused for anytime the player lets go of a key
+            document.body.onkeyup = (event) => {
+                // when the player lets go of the showItems key, all outlines will disappear
+                if (event.key == showItems){
+                    document.getElementById("keypad").style.opacity = "0";
+                    document.getElementById("bookmark").style.opacity = "0";
+                    document.getElementById("right").style.opacity = "0";
+                    document.getElementById("left").style.opacity = "0";
+                }
+            }
+        }
+    </script>
+
+</html>

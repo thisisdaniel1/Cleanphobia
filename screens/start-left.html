@@ -1,0 +1,151 @@
+
+
+<html>
+    <head>
+        <style>
+            body {
+                cursor: crosshair;
+                background-position: center center;
+                background-image: url("../assets/bricks.png");
+                background-size: 150px;
+            }
+
+            #six {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                border-style: solid;
+                border-width: 5px;
+                border-color: blue;
+                background-image: url("../assets/actions/eye.png");
+                width: 50px;
+                height: 50px;
+                cursor: url("../assets/actions/eye.png"), auto;
+                position: absolute;
+                left: 550px;
+                top: 200px;
+            }
+
+            #left-box {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                border-style: solid;
+                border-width: 5px;
+                border-color: blue;
+                background-image: url("../assets/actions/eye.png");
+                width: 70px;
+                height: 70px;
+                cursor: url("../assets/actions/eye.png"), auto;
+                position: absolute;
+                left: 640px;
+                bottom: 180px;
+            }
+            
+            #left-right {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                border-style: solid;
+                border-width: 5px;
+                border-color: red;
+                background-image: url("../assets/actions/left.png");
+                width: 90px;
+                height: 180px;
+                cursor: url("../assets/actions/left.png"), auto;
+                position: absolute;
+                left: 535px;
+                bottom: 140px;
+            }
+
+            #left-start {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                border-style: solid;
+                border-width: 5px;
+                border-color: red;
+                background-image: url("../assets/actions/right.png");
+                width: 90px;
+                height: 200px;
+                cursor: url("../assets/actions/right.png"), auto;
+                position: absolute;
+                right: 535px;
+                bottom: 300px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div style="display: flex; justify-content: center;">
+            <video id="video" width="300" height="500" autoplay>
+                <source src="../assets/start-left.mp4" type="video/mp4">
+                Video no work.
+            </video>
+        </div>
+
+        <div id="six" style="visibility: hidden; opacity: 0;">
+            <audio id="sixAudio">
+                <source src="../assets/sixClubs.m4a" type="audio/mp4">
+            </audio>
+        </div>
+
+        <div id="right" style="visibility: hidden; opacity: 0;">
+            <a id="left-right" href="left-right.html"></a>
+        </div>
+
+        <div id="box" style="visibility: hidden; opacity: 0;">
+            <a id="left-box" href="left-box.html"></a>
+        </div>
+
+        <div id="start" style="visibility: hidden; opacity: 0;">
+            <a id="left-start" href="left-start.html"></a>
+        </div>
+    </body>
+
+    <script>
+        // enums for player controls
+        const showItems = "Enter";
+
+        var video = document.getElementById("video");
+        let six = document.getElementById("six");
+        let box = document.getElementById("box");
+
+        let sixAudio = document.getElementById("sixAudio");
+
+        video.onended = () => {
+            six.style.visibility = "visible";
+            document.getElementById("start").style.visibility = "visible";
+            document.getElementById("right").style.visibility = "visible";
+            box.style.visibility = "visible";
+
+
+            // this function can be reused for anytime the player holds a key down
+            document.body.onkeydown = (event) => {
+                // while the player is holding down the showItems key, the button outlines will appear
+                if (event.key == showItems){
+                    six.style.opacity = "100";
+                    document.getElementById("start").style.opacity = "100";
+                    document.getElementById("right").style.opacity = "100";
+                    box.style.opacity = "100";
+                }
+            }
+
+            // this function can be reused for anytime the player lets go of a key
+            document.body.onkeyup = (event) => {
+                // when the player lets go of the showItems key, all outlines will disappear
+                if (event.key == showItems){
+                    six.style.opacity = "0";
+                    document.getElementById("start").style.opacity = "0";
+                    document.getElementById("right").style.opacity = "0";
+                    box.style.opacity = "0";
+                }
+            }
+
+            six.addEventListener("click", () => {
+                sixAudio.play();
+            });
+        }
+    </script>
+
+</html>

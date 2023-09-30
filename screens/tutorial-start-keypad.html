@@ -1,0 +1,178 @@
+
+
+<html>
+    <head>
+        <style>
+            body {
+                cursor: crosshair;
+                background-position: center center;
+                background-image: url("../assets/bricks.png");
+                background-size: 150px;
+            }
+
+            #warning {
+                color: red;
+                text-align: center;
+                font-size:xx-large;
+                font-weight: bold;
+            }
+
+            #keypad-start {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                background-image: url("../assets/actions/down.png");
+                border-style: solid;
+                border-width: 5px;
+                border-color: gold;
+                width: 140px;
+                height: 140px;
+                cursor: url("../assets/actions/down.png"), auto;
+                position: absolute;
+                left: 540px;
+                bottom: 140px;
+            }
+            #input {
+                position: absolute;
+                right: 575px;
+                top: 125px;
+                width: 175px;
+                height: 80px;
+                text-align: center;
+                color: white;
+                background: transparent;
+                visibility: hidden;
+            }
+            #submit {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                position: absolute;
+                right: 585px;
+                bottom: 200px;
+                width: 30px;
+                height: 15px;
+                border-style: solid;
+                border-width: 5px;
+                border-color: gold;
+                background-image: url("../assets/actions/hand.png");
+                cursor: url("../assets/actions/hand.png"), auto;
+                visibility: hidden;
+                /* z-index forces the submit button to overwrite the back arrow over the area where they overlap */
+                z-index: 10;
+                opacity: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div style="display: flex; justify-content: center;">
+            <video id="video" width="300" height="500" autoplay>
+                <source src="../assets/tutorial-start-keypad.mp4" type="video/mp4">
+                Video no work.
+            </video>
+        </div>
+
+        <div id="start" style="visibility: hidden; opacity: 0;">
+            <a id="keypad-start" href="keypad-start.html"></a>
+        </div>
+
+        <!-- only allows 4 numbers, also letters I guess -->
+        <input id="input" type="text" name="input" maxlength="4" />
+        <div id="submit"></div>
+
+        <audio id="attempt1">
+            <source src="../assets/attempt1.mp4" type="audio/mp4">
+        </audio>
+        <audio id="attempt2">
+            <source src="../assets/attempt2.mp4" type="audio/mp4">
+        </audio>
+        <audio id="attempt3">
+            <source src="../assets/attempt3.mp4" type="audio/mp4">
+        </audio>
+        <audio id="attempt4">
+            <source src="../assets/attempt4.mp4" type="audio/mp4">
+        </audio>
+    </body>
+
+    <script>
+        // enums for player controls
+        const showItems = "Enter";
+
+        var video = document.getElementById("video");
+        var videoHasEnded = false;
+        let input = document.getElementById("input");
+        let submit = document.getElementById("submit");
+
+        var attempt1 = false;
+        let attempt1Src = document.getElementById("attempt1");
+        let attempt2 = false;
+        let attempt2Src = document.getElementById("attempt2");
+        let attempt3 = false;
+        let attempt3Src = document.getElementById("attempt3");
+        let attempt4 = false;
+        let attempt4Src = document.getElementById("attempt4");
+
+        let start = document.getElementById("start");
+
+        video.onended = () => {
+            videoHasEnded = true;
+            if (videoHasEnded){
+                start.style.visibility = "visible";
+            }
+            input.style.visibility = "visible";
+            submit.style.visibility = "visible";
+
+            // this function can be reused for anytime the player holds a key down
+            document.body.onkeydown = (event) => {
+                // while the player is holding down the showItems key, the button outlines will appear
+                if (event.key == showItems){
+                    if (attempt1){
+                        start.style.opacity = "100";
+                    }
+                    submit.style.opacity = "100";
+                }
+            }
+
+            // this function can be reused for anytime the player lets go of a key
+            document.body.onkeyup = (event) => {
+                if (event.key == showItems){
+                    if (attempt1){
+                        start.style.opacity = "0";
+                    }
+                    submit.style.opacity = "0";
+                }
+            }
+        }
+
+        // if the player clicks on the submit button, the game will check what's on the calculator (input)
+        submit.addEventListener("click", () => {
+            console.log(""+input.value);
+            // if that input is 1400 then they win!
+            if (input.value == "1400"){
+                window.location.href = "freedom.html";
+            }
+
+            if (!attempt1){
+                attempt1Src.play();
+                attempt1 = true;
+            }
+            else if (!attempt2){
+                attempt2Src.play();
+                attempt2 = true;
+            }
+            else if (!attempt3){
+                attempt3Src.play();
+                attempt3 = true;
+            }
+            else if (!attempt4){
+                attempt4Src.play();
+                attempt4 = true;
+            }
+            else{
+                window.location.href = "tutorial-lose.html";
+            }
+        });
+    </script>
+
+</html>

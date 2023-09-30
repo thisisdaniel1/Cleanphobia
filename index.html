@@ -2,25 +2,37 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="css/main.css">
-        <!-- defer indicates script will be loaded parallel to parallel to parsing the page, and executed -->
-        <script src="js/main.js" defer></script>
+        <style>
+            body {
+                cursor: crosshair;
+                background-position: center center;
+                background-image: url("assets/bricks.png");
+                background-size: 150px;
+            }
+            img {
+                width: 40%;
+                height: 80%;
+                margin: auto;
+                display: block;
+            }
+        </style>
     </head>
 
     <body>
-        <main id="stage">
-            <div style="display: flex; justify-content: center;">
-                <video id="mainVideo" width="300" height="500" autoplay controls>
-                    <source src="./assets/start.mp4" type="video/mp4">
-                    Video no work.
-                </video>
-            </div>
+        <img src="assets/taped.jpg">
 
-            <div id="button1"></div>
-            <div id="button2"></div>
-        </main>
-        <!-- <button id="sound">Music on</button> -->
-    
+        <div style="display: flex; justify-content: center;">
+            <a style="text-align: center; padding: 10px;" href="./screens/start.html">
+                <img style="width: 100%;
+                height: 100%;" src="assets/button.jpg">
+                Start
+            </a>
+
+            <a style="text-align: center; padding: 10px;" href="./screens/tutorial-start.html">
+                <img style="width: 100%;
+                height: 100%;" src="assets/blue-button.jpg">
+                Tutorial
+            </a>
+        </div>
     </body>
-
 </html>
